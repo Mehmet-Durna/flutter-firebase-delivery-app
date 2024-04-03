@@ -1,4 +1,4 @@
-import 'package:delivery/auth/login_or_register.dart';
+import 'package:delivery/services/auth/login_or_register.dart';
 import 'package:delivery/firebase_options.dart';
 import 'package:delivery/models/restaurant.dart';
 import 'package:firebase_core/firebase_core.dart';
