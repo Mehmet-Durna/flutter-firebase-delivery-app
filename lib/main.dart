@@ -1,4 +1,4 @@
-import 'package:delivery/services/auth/login_or_register.dart';
+import 'package:delivery/services/auth/auth_gate.dart';
 import 'package:delivery/firebase_options.dart';
 import 'package:delivery/models/restaurant.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  LoginOrRegister(),
+      home:  AuthGate(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }

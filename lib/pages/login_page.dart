@@ -1,8 +1,8 @@
 import 'package:delivery/components/my_button.dart';
 import 'package:delivery/components/my_textfield.dart';
-import 'package:delivery/pages/home_page.dart';
+import 'package:delivery/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -18,22 +18,24 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
 //login method
-void login(){
+void login() async{
+  // get instance of auth service
+  final _authService = AuthService();
 
-/*
+  //try sign in
+  try{
+    await _authService.signInWithEmailPassword(emailController.text, passwordController.text);
+  }
 
-fill out authentication here..
-
-*/
-
-// navigate to home page
-
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => HomePage(),
-  ),
-);
+  // catch any errors
+  catch(e){
+    showDialog(
+      context: context,
+      builder: (context)=> const AlertDialog(
+        title: Text("Error on sign in"),
+      ),
+    );
+}
 }
 
 

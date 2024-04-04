@@ -1,5 +1,6 @@
 import 'package:delivery/components/my_button.dart';
 import 'package:delivery/components/my_textfield.dart';
+import 'package:delivery/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,6 +16,40 @@ class _RegisterPageState extends State<RegisterPage>{
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController confirmPasswordController = TextEditingController();
+
+//sign up function
+void register() async{
+  // get auth service
+
+  final authService = AuthService();
+
+  // check if passwords match -> create account
+
+  if(passwordController.text == confirmPasswordController.text){
+    try{
+      await authService.signUpWithEmailPassword(emailController.text, passwordController.text);
+    }
+    //catch any errors
+catch(e){
+  showDialog(
+    context: context, 
+    builder: (context)=> const AlertDialog(
+      title: Text("Error on sign up"),
+    ),
+    );
+  }
+  }
+
+  // if passwords do not match -> show error message
+  else{
+    showDialog(
+      context: context,
+      builder: (context)=> const AlertDialog(
+        title: Text("Passwords do not match"),
+      ),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context){
@@ -69,7 +104,7 @@ final TextEditingController confirmPasswordController = TextEditingController();
               const SizedBox(height: 25),
 
              MyButon(
-              onTap: () {},
+              onTap: register,
                text: "Sign Up"),
 
               const SizedBox(height: 25),
